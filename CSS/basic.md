@@ -1,5 +1,7 @@
 # CSS 기초
 
+https://www.smashingmagazine.com/2019/01/how-to-learn-css/
+
 - psuedo-class selctor
 
     ```css
