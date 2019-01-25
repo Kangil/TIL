@@ -7,7 +7,7 @@ pip install pyyaml
 #pip설치가 안되어있는 경우 python -m pip install pyyaml 로도 가능
 ```
 
-# YAML 형식 읽기
+# YAML 읽기
 ```python
 import yaml
 document = """
@@ -23,7 +23,7 @@ print(yaml.load(document))
 {'a': 1, 'b': {'c': 3, 'd': 4}}
 ```
 
-# YAML 형식 쓰기
+# YAML 쓰기
 ```python
 import yaml
 some_dict = {'a': 1, 'b': {'c': 3, 'd': 4}}
