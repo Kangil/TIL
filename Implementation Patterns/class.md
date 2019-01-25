@@ -80,3 +80,35 @@ bounds = bounds.translateBy(10, 20); // 값 스타일 Rectangle 객체
 - 다형적 메세지는 여러 가지 변형 수용 가능
 - 객체와 메세지를 통해 의도(데이터 전송)와 구현을 분리하여 프로그래머의 의도를 명확히 표현
 - 이 방식으로 미래에 발생할 확장을 수용할 수 있음
+
+# 내부 클래스
+- 낮은 비용으로 클래스 사용의 이점을 가질수 있는 방법
+- 감싼 클래스(enclosing class)의 데이터에 접근 가능
+
+```java
+public class InnerClassExample {
+    private String field;
+
+    public class Inner {
+        public String example() {
+            return field; // 감싼 클래스 인스턴스의 필드 사용
+        }
+    }
+
+    @Test public void passed() {
+        field = "abc";
+        Inner bar = new Inner();
+        assertEquals("abc", bar.example());
+    }
+}
+```
+
+- 내부 클래스는 인자없는 생성자 가질 수 없음 (???)
+    - 리플렉션으로 인스턴스 만드는 경우 문제점 내포
+- 생성 클래스의 인스턴스와 분리된 내부 클래스는를 쓰려면 static 으로 선언해 사용
+
+# 인스턴스별 행위
+- 클래스의 인스턴스는 모두 같은 로직을 공유하나 다르게도 가능
+- 연산 도중 로직이 변화하는 경우 코드 이해하기 어려워짐
+    - 데이터 흐름을 추적해야할 필요가 있으므로
+    - 인스턴스 생성 후에는 되도록 인스턴스 행동을 변화시키지 않는 편이 좋음
