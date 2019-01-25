@@ -47,3 +47,24 @@ door.open();
 - 객체의 일부 메소드에서만 사용하거나 특정 메소드 수행되는 동안만 유효한 필드 생성이 필요한 경우
     - 인자를 사용
     - 도우미 객체를 사용
+
+# 가변 상태
+- 단순 값만 다른것이 아닌 새로운 데이터 요소를 필요로 하는 경우
+    - 데이터 요소 이름을 키로 값을 데이터로 하는 맵으로 표현
+
+    ```java
+    class FlexibleObject {
+        Map<String, Object> properties = new HashMap<String, Object>();
+        Object getProperty(String key) {
+            return properties.get(key);
+        }
+        void setProperty(String key, Object value) {
+            properties.set(key, value);
+        }
+    }
+    ```
+
+- 공용 상태보다 유연하지만 코드 읽기 어려움
+- 각 필드의 상태에 따라 다른 필드를 필요로 하는 경우에만 사용
+    - 가능하면 공용 상태를 사용!
+- 다형성을 사용하면 공용 상태를 이용하여서도 표현 가능
