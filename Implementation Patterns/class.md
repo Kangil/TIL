@@ -112,3 +112,75 @@ public class InnerClassExample {
 - 연산 도중 로직이 변화하는 경우 코드 이해하기 어려워짐
     - 데이터 흐름을 추적해야할 필요가 있으므로
     - 인스턴스 생성 후에는 되도록 인스턴스 행동을 변화시키지 않는 편이 좋음
+
+# 조건문
+- 모든 로직이 한 클래스 안에 있어 읽기 편리
+- 분기가 많을수록 안정성이 떨어지고 버그 가능성도 증가
+- 조건부 로직이 중복되거나 분기문의 결과에 따라 로직이 달라질 경우
+    - 하위클래스나 위임을 사용하여 메시지로 변경
+
+# 위임
+- 프로그램 수행 도중 동작 변경이 필요한 경우 사용
+- 로직이 각 클래스에 분산되어 코드읽기 어려움
+- 인스턴스별 행위 지원 이외에 코드 공유에도 사용 가능
+- 위임자 클래스(delegator)를 위임 메소드(delegated method)에 인자로 넘겨주는 방식으로 응용 가능
+    - #1 처럼 위임 메소드에 위임자 클래스를 전달하면 여러종류의 editor클래스에서 이 메소드 사용 가능
+    - #1과 같이 유연성이 필요하지 않은 경우 #2 처럼 필드를 통해 참조하는 편이 간편
+
+```java
+// #1
+GraphicEditor
+public void mouseDown() {
+    tool.mouseDown(this);
+}
+
+RectagleTool
+public void mouseDown(GraphicEditor editor) {
+    editor.add(new RectangleFigure());
+}
+```
+
+```java
+// #2
+GraphicEditor
+public void mouseDown() {
+    tool.mouseDown();
+}
+
+RectangleTool
+private GraphicEditor editor;
+public RectangleTool(GraphicEditor editor) {
+    this.editor = editor;
+}
+
+public void mouseDown() {
+    editor.add(new RectangleFigure());
+}
+```
+
+# 플러그인 선택자
+- 한 두개의 메소드에서만 인스턴스별 행동이 필요하고 모든 로직이 한개 클래스에 있어도 되는 경우 메소드 이름을 필드에 저장해두고 리플렉션을 통해 호출
+    - 기법을 알고 있는 사람만 이해 가능
+    - 사용에 따르는 비용이 크므로 일부 문제에 한해서만 제한적으로 사용!
+
+```java
+// junit
+String name;
+public void runTest() throws Exception {
+    class[] noArguments = new Class[0];
+    Method method = getClass().getMethod(name, noArguments);
+    method.invloke(this, new Object([0]));
+}
+```
+
+# 익명 내부 클래스 
+- 한 곳에서만 사용되는 클래스를 생성하여 일부 메소드 오버라이드후 지역적으로 사용
+    - API가 매우 간단한 경우 (run()만 가지고 있는 Runnable 인터페이스)
+    - 상위클래스가 대부분 구현을 담당하여 내부 클래스 구현이 쉬운 경우
+- 가독성을 위해 내부 클래스는 최대한 짧게
+- 별도 테스트 어려워서 복잡한 로직에 적합하지 않으며 이름이 없어 이를 통해 의도 전달 불가
+
+# 라이브러리 클래스
+- 어떤 객체에도 적합하지 않은 기능을 모아둔 클래스
+- 인스턴스가 불가하게 정적 메소드로 구현한 클래스
+- 로직이 많이질 경우 객체로 변환이 필요
