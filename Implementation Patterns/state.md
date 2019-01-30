@@ -147,3 +147,18 @@ door.open();
     - 컬렉션을 사용할 수 있으나 호출코드가 깔끔하지 않음
     - 가변인자를 사용
 - 가변인자는 항상 마지막 파라미터로 지정
+
+# 파라미터 객체
+- 여러 개의 파라미터가 여러 개의 메소드에 전달되면
+    - 하나의 객체로 처리
+    - 일부 필드만 사용한다면 그에 해당하는 메소드를 파라미터 객체에 생성
+
+```java
+setOuterBounds(x, y, width, height);
+setInnerBounds(x + 2, x + 2, width - 4, height - 4);
+// 파라미터객체로 변경
+setOuterBounds(bounds);
+setInnerBounds(bounds.expand(-2));
+```
+- 파라미터 객체가 읽기 쉽고 테스트하기에도 쉬움
+- 객체 생성이 성능에 문제가 되는 경우에만 사용하지 말것
