@@ -13,3 +13,14 @@
 ## 메시지
 - 메시지를 사용하여 로직을 표현
 - 미래의 변형에 유연하게 대처 가능
+
+## 선택 메시지
+- case 문과 같은 목적으로 메시지 사용
+
+```java
+public void displayShaple(Shape subject, Brush brush) {
+    brush.display(subject);
+}
+```
+
+- 당장 연산의 변형이 필요하지 않는 경우라면 미래의 확장을 위해 선택 메시지 사용할 필요X
