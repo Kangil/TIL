@@ -162,3 +162,14 @@ setInnerBounds(bounds.expand(-2));
 ```
 - 파라미터 객체가 읽기 쉽고 테스트하기에도 쉬움
 - 객체 생성이 성능에 문제가 되는 경우에만 사용하지 말것
+
+# 상수
+- 변하지 않는 데이터를 여러 부분에서 사용하고 컴파일시점에 값을 알고있다면
+    - static final로 선언
+    - 다른 변수와 구별하기 위해 대문자
+- 흔히 인터페이스에서 메세지 종류를 나타내기 위해 사용
+    - 각각 별도의 메소드를 사용하는 편이 좀더 의미가 명확
+    ```java
+    setJustification(Justification.CENTERED); // 상수 버전
+    justifyCentered(); // 메소드 버전
+    ```
