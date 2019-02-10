@@ -27,7 +27,7 @@ public static Boolean valueOf(boolean b) {
 2. 찾기 어려움
     - 생성자처럼 API문서상에서 명확하지 않으므로 널리 알려진 규약을 따라 짓는 식으로 완화
 
-## 널리 알려진 규약
+## 널리 알려진 메서드명
 - from : 매개변수 하나 받아 해당 타입 인스턴스를 반환하는 형변환 메서드
 ```java
 Date d = Date.from(instant);
@@ -43,7 +43,7 @@ Set<Rank> faceCards = EnumSet.of(JACK, QUEEN, KING);
 BigInteger prime = BigInteger.valueOf(Integer.MAX_VALUE);
 ```
 
-- instance 혹은 getInstance: 매개변수로 명시한 인스턴스를 반환, 같은 인스턴스임은 보장X
+- instance 혹은 getInstance : 매개변수로 명시한 인스턴스를 반환, 같은 인스턴스임은 보장X
 ```java
 StackWalker luke = StackWalker.getInstance(options);
 ```
