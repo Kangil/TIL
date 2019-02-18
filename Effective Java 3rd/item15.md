@@ -35,3 +35,34 @@
 ## 테스트 목적으로 접근 범위를 넓히는 경우
 - pakcage-private정도 까지는 괜찮지만 그 이상은 공개 API가 되므로 주의
 - 테스트코드를 같은 패키지안에 두는 방식으로 해결
+
+
+## public 클래스의 설계
+- public 클래스의 인스턴스 필드는 되도록 public 이 아니도록 설계 (item16)
+    - final이 아닌 필드를 public으로 선언하면 해당 필드 관련 항목은 불변식으로 보장X
+    - 이 경우 필드 수정시 다른 작업을 할 수 없으므로 스레드 안전하지 않음
+- 유일한 예외는 public static final 필드를 상수로 쓰는 경우
+    - 관례상 대문자에 단어간 _ 문자로 구분 (item68)
+    - 반드시 기본 타입 값이나 불변 객체를 참조해야함 (item17)
+- public static final 배열필드나 접근자 제공해서는 안됨
+    - 길이가 0아 아닌 배열은 모두 변경 가능하므로
+
+```java
+// 보안 허점 존재
+public static final Thing[] VALUES = { ... };
+
+// 해결책1 - public 불변리스트
+private static final Thing[] PRIVATE_VALUES = { ... };
+public static ifnal List<Thing> VALUES =
+    Collections.unmodifiableList(Arrays.as(PRIVATE_VALUES));
+
+// 해결책2 - 방어적 복사
+private static final Thing[] PRIVATE_VALUES = { ... };
+public static final Thing[] values() {
+    return PRIVATE_VALUES.clone();
+}
+```
+
+## 자바9 모듈 시스템
+- 모듈은 패키지의 모음으로 protected, public 제한자에 영향을 미침
+- 사용이 쉽지 않으므로 꼭 필요한게 아니라면 나중을 기약
